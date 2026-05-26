@@ -54,7 +54,7 @@ class QrTokenController extends Controller
             return response()->json(responseFormatter(constant: DEFAULT_400, errors: errorProcessor($validator)), 422);
         }
 
-        $qrToken = QrToken::where('token', $request->token)->first();
+        $qrToken = QrToken::with('creator')->where('token', $request->token)->first();
 
         if (!$qrToken || !$qrToken->isValid()) {
             return response()->json(responseFormatter(constant: DEFAULT_404), 404);
@@ -63,6 +63,7 @@ class QrTokenController extends Controller
         return response()->json(responseFormatter(DEFAULT_200, [
             'valid' => true,
             'role' => $qrToken->role,
+            'driver_name' => optional($qrToken->creator)->first_name . ' ' . optional($qrToken->creator)->last_name,
         ]));
     }
 
@@ -106,7 +107,7 @@ class QrTokenController extends Controller
     public function validateTokenPublic(string $token): JsonResponse
     {
         $qrToken = DB::transaction(function () use ($token) {
-            return QrToken::where('token', $token)
+            return QrToken::with('creator')->where('token', $token)
                 ->lockForUpdate()
                 ->first();
         });
@@ -118,6 +119,7 @@ class QrTokenController extends Controller
         $data = [
             'valid' => true,
             'role' => $qrToken->role,
+            'driver_name' => optional($qrToken->creator)->first_name . ' ' . optional($qrToken->creator)->last_name,
         ];
 
         return response()->json(responseFormatter(DEFAULT_200, $data));
@@ -147,5 +149,31 @@ class QrTokenController extends Controller
         $token->update(['is_revoked' => true]);
 
         return response()->json(responseFormatter(DEFAULT_200));
+    }
+
+    public function revokeTokenById(string $id): JsonResponse
+    {
+        $token = DB::transaction(function () use ($id) {
+            return QrToken::where('id', $id)
+                ->lockForUpdate()
+                ->first();
+        });
+
+        if (!$token) {
+            return response()->json(responseFormatter(constant: DEFAULT_404), 404);
+        }
+
+        $token->update(['is_revoked' => true]);
+
+        return response()->json(responseFormatter(DEFAULT_200));
+    }
+
+    public function referralCount(Request $request): JsonResponse
+    {
+        $count = QrToken::where('created_by', $request->user()->id)
+            ->whereNotNull('redeemed_at')
+            ->count();
+
+        return response()->json(responseFormatter(DEFAULT_200, ['count' => $count]));
     }
 }

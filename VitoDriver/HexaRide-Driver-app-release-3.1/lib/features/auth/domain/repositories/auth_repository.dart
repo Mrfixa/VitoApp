@@ -1,5 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ride_sharing_user_app/data/api_client.dart';
@@ -12,6 +13,8 @@ class AuthRepository implements AuthRepositoryInterface {
   final ApiClient apiClient;
   final SharedPreferences sharedPreferences;
   AuthRepository({required this.apiClient, required this.sharedPreferences});
+
+  final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
 
   @override
   Future<Response?> login({required String phone, required String password}) async {
@@ -139,13 +142,21 @@ class AuthRepository implements AuthRepositoryInterface {
   Future<bool?> saveUserToken(String token, String zoneId) async {
     apiClient.token = token;
     apiClient.updateHeader(token, sharedPreferences.getString(AppConstants.languageCode), "latitude", "longitude", zoneId);
-    return await sharedPreferences.setString(AppConstants.token, token);
+    await _secureStorage.write(key: AppConstants.token, value: token);
+    await sharedPreferences.remove(AppConstants.token);
+    return true;
 
   }
 
   @override
   String getUserToken() {
     return sharedPreferences.getString(AppConstants.token) ?? "";
+  }
+
+  Future<String> getSecureToken() async {
+    final secure = await _secureStorage.read(key: AppConstants.token);
+    if (secure != null && secure.isNotEmpty) return secure;
+    return sharedPreferences.getString(AppConstants.token) ?? '';
   }
 
   @override
@@ -156,6 +167,7 @@ class AuthRepository implements AuthRepositoryInterface {
   @override
   bool clearSharedData() {
     sharedPreferences.remove(AppConstants.token);
+    _secureStorage.delete(key: AppConstants.token);
     return true;
   }
 

@@ -32,6 +32,7 @@ Route::group(['prefix' => 'driver/mart', 'middleware' => ['auth:api', 'maintenan
         Route::post('accept-order', 'acceptOrder');
         Route::put('update-status', 'updateStatus');
         Route::middleware('throttle:10,1')->post('upload-proof', 'uploadDeliveryProof');
+        Route::middleware('throttle:10,1')->post('orders/{id}/signature', 'uploadSignature');
         Route::get('my-orders', 'myOrders');
         Route::get('orders/{id}', 'orderDetails');
     });
