@@ -229,29 +229,6 @@ class VitoMartDriverController extends Controller
         return response()->json(responseFormatter(DEFAULT_200, $order));
     }
 
-    public function uploadSignature(Request $request, string $id): JsonResponse
-    {
-        $validator = Validator::make($request->all(), [
-            'signature' => 'required|string',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(responseFormatter(constant: DEFAULT_400, errors: errorProcessor($validator)), 422);
-        }
-
-        $order = \Modules\TripManagement\Entities\MartOrder::where('id', $id)
-            ->where('driver_id', $request->user()->id)
-            ->first();
-
-        if (!$order) {
-            return response()->json(responseFormatter(constant: DEFAULT_404), 404);
-        }
-
-        $order->update(['delivery_signature' => $request->signature]);
-
-        return response()->json(responseFormatter(DEFAULT_200));
-    }
-
     private function notifyCustomer(MartOrder $order, string $title, string $description, string $action): void
     {
         try {

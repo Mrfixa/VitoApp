@@ -6,20 +6,20 @@ Route::controller(\Modules\AuthManagement\Http\Controllers\Api\AuthController::c
     Route::group(['prefix' => 'customer'], function () {
         Route::group(['prefix' => 'auth'], function () {
             Route::post('registration', 'register')->name('customer-registration');
-            // Route::post('registration-from-otp', 'registrationFromOtp');
+            Route::post('registration-from-otp', 'registrationFromOtp');
             Route::post('login', 'login')->name('customer-login');
             Route::post('social-login', 'customerSocialLogin');
             Route::post('update-data', 'updateData');
             //login
-            // Route::post('otp-login', 'otpLogin');
+            Route::post('otp-login', 'otpLogin');
             Route::post('check', 'userExistOrNotChecking');
             // reset or forget password
             Route::post('forget-password', 'forgetPassword');
             Route::post('reset-password', 'resetPassword');
-            // Route::post('otp-verification', 'otpVerification');
-            // Route::post('firebase-otp-verification', 'firebaseOtpVerification');
+            Route::post('otp-verification', 'otpVerification');
+            Route::post('firebase-otp-verification', 'firebaseOtpVerification');
             //send otp for otp login or reset
-            // Route::post('send-otp', 'sendOtp');
+            Route::post('send-otp', 'sendOtp');
             Route::post('external-registration', 'customerRegistrationFromMart');
             Route::post('external-login', 'customerLoginFromMart');
 
@@ -35,15 +35,15 @@ Route::controller(\Modules\AuthManagement\Http\Controllers\Api\AuthController::c
     Route::group(['prefix' => 'driver'], function () {
         Route::group(['prefix' => 'auth'], function () {
             Route::post('registration', 'register')->name('driver-registration');
-            // Route::post('registration-from-otp', 'registrationFromOtp');
+            Route::post('registration-from-otp', 'registrationFromOtp');
             Route::post('update-data', 'updateData');
             Route::post('login', 'login')->name('driver-login');
-            // Route::post('send-otp', 'sendOtp');
+            Route::post('send-otp', 'sendOtp');
             Route::post('check', 'userExistOrNotChecking');
             Route::post('forget-password', 'forgetPassword');
             Route::post('reset-password', 'resetPassword');
-            // Route::post('otp-verification', 'otpVerification');
-            // Route::post('firebase-otp-verification', 'firebaseOtpVerification');
+            Route::post('otp-verification', 'otpVerification');
+            Route::post('firebase-otp-verification', 'firebaseOtpVerification');
         });
 
         Route::group(['middleware' => ['auth:api', 'maintenance_mode']], function () {
@@ -71,7 +71,6 @@ Route::controller(\Modules\AuthManagement\Http\Controllers\Api\VitoAuthControlle
     Route::group(['prefix' => 'customer/auth', 'middleware' => 'throttle:20,1'], function () {
         Route::post('pin-login', 'pinLogin');
         Route::post('pin-register', 'pinRegister');
-        Route::post('check-username', 'checkUsername');
     });
 
     Route::group(['prefix' => 'driver/auth', 'middleware' => 'throttle:20,1'], function () {
@@ -98,7 +97,5 @@ Route::controller(\Modules\AuthManagement\Http\Controllers\Api\QrTokenController
     Route::group(['middleware' => ['auth:api', 'scope:AccessToSuperAdmin', 'maintenance_mode', 'throttle:10,1']], function () {
         Route::post('qr-token/generate', 'generateToken');
         Route::post('qr-token/revoke', 'revokeToken');
-        Route::post('qr-token/revoke/{id}', 'revokeTokenById');
-        Route::get('driver/referral-count', 'referralCount')->middleware(['auth:api', 'maintenance_mode']);
     });
 });

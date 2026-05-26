@@ -39,6 +39,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 <script>
 (function(){
   var ANDROID_PACKAGE = 'com.vito.app';
+  var PLAY_STORE_URL  = 'https://play.google.com/store/apps/details?id=' + ANDROID_PACKAGE;
+  var APP_STORE_URL   = 'https://apps.apple.com/app/vito/id000000000'; // placeholder
   var APP_SCHEME      = 'vito://invite?token=';
 
   var params = new URLSearchParams(window.location.search);
@@ -50,9 +52,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
     card.innerHTML = '<div class="icon">&#9888;&#65039;</div><div class="status error">Invalid Link</div><div class="detail">This invitation link is not valid.</div>';
     return;
   }
-
-  var PLAY_STORE_URL  = 'https://play.google.com/store/apps/details?id=' + ANDROID_PACKAGE + '&referrer=token%3D' + encodeURIComponent(token);
-  var APP_STORE_URL   = 'https://apps.apple.com/app/vito/id000000000?token=' + encodeURIComponent(token);
 
   function escapeHtml(str){
     var d = document.createElement('div');
@@ -113,11 +112,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
     .then(function(r){ return r.json(); })
     .then(function(data){
       if(data.data && data.data.valid){
-        var driverName = (data.data.driver_name && data.data.driver_name.trim()) ? escapeHtml(data.data.driver_name.trim()) : null;
         var html = '<div class="icon">&#9989;</div>';
-        html += driverName
-          ? '<div class="status">You\'re invited by ' + driverName + '!</div>'
-          : '<div class="status">You\'ve been invited to join Vito!</div>';
+        html += '<div class="status">You\'ve been invited to join Vito!</div>';
         html += '<div class="detail">Your invitation is valid. Tap below to get started.</div>';
 
         // Fix 4 — prominent "Open in App" button with safely escaped token
