@@ -5,7 +5,6 @@ import 'package:ride_sharing_user_app/data/api_checker.dart';
 import 'package:ride_sharing_user_app/features/auth/domain/enums/verification_from_enum.dart';
 import 'package:ride_sharing_user_app/features/auth/domain/models/sign_up_body.dart';
 import 'package:ride_sharing_user_app/features/auth/domain/services/auth_service_interface.dart';
-import 'package:ride_sharing_user_app/features/auth/screens/otp_signup_screen.dart';
 import 'package:ride_sharing_user_app/features/auth/widgets/manual_auth_waring_bottom_sheet_widget.dart';
 import 'package:ride_sharing_user_app/features/dashboard/controllers/bottom_menu_controller.dart';
 import 'package:ride_sharing_user_app/features/auth/screens/reset_password_screen.dart';
@@ -243,8 +242,6 @@ class AuthController extends GetxController implements GetxService {
         );
       }
 
-    }else if(response.statusCode == 406){
-      Get.off(()=> OtpSignupScreen(phoneNumber: phone));
     }else{
       otpVerifying = false;
       ApiChecker.checkApi(response);
@@ -395,6 +392,14 @@ class AuthController extends GetxController implements GetxService {
     update();
   }
 
+
+  Future<bool?> checkUsernameAvailability(String username) async {
+    final response = await authServiceInterface.checkUsername(username);
+    if (response?.statusCode == 200) {
+      return response?.body['data']['available'] == true;
+    }
+    return null;
+  }
 
   void saveFindingRideCreatedTime(){
     authServiceInterface.saveRideCreatedTime(DateTime.now());

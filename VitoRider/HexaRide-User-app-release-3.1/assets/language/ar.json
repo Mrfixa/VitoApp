@@ -997,5 +997,14 @@
   "we_do_for_you_the_best": "نقدم لك الأفضل",
   "your_payment_cancelled": "تم إلغاء دفعتك",
   "your_payment_failed": "فشلت دفعتك",
-  "your_payment_successfully_done": "تمت دفعتك بنجاح"
+  "your_payment_successfully_done": "تمت دفعتك بنجاح",
+  "checking": "جاري التحقق...",
+  "username_available": "اسم المستخدم متاح",
+  "username_taken": "اسم المستخدم مستخدم بالفعل",
+  "scan_qr_code": "مسح رمز QR",
+  "no_internet_connection": "لا يوجد اتصال بالإنترنت",
+  "share_qr_code": "مشاركة رمز QR",
+  "invite_customer": "دعوة عميل",
+  "valid_for": "صالح لمدة",
+  "failed_to_generate_qr": "فشل في إنشاء رمز QR"
 }

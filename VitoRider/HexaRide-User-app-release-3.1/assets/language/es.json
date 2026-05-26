@@ -995,5 +995,14 @@
   "confirm_booking_message": "¿Está seguro de que desea reservar este viaje?",
   "too_many_requests": "Demasiadas solicitudes. Inténtelo más tarde.",
   "server_error": "Error del servidor. Inténtelo de nuevo.",
-  "order_not_found": "Pedido no encontrado o no se puede cancelar"
+  "order_not_found": "Pedido no encontrado o no se puede cancelar",
+  "scan_qr_code": "Escanear código QR",
+  "no_internet_connection": "Sin conexión a internet",
+  "share_qr_code": "Compartir código QR",
+  "invite_customer": "Invitar cliente",
+  "valid_for": "Válido por",
+  "failed_to_generate_qr": "Error al generar el código QR",
+  "checking": "Verificando...",
+  "username_available": "El nombre de usuario está disponible",
+  "username_taken": "El nombre de usuario ya está en uso"
 }

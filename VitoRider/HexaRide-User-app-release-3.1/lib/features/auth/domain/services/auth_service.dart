@@ -161,4 +161,9 @@ class AuthService implements AuthServiceInterface{
    return await authRepositoryInterface.registrationFromOtp(signUpBody, updateFromRegistration: updateFromRegistration);
   }
 
+  @override
+  Future<dynamic> checkUsername(String username) async {
+    return await authRepositoryInterface.checkUsername(username);
+  }
+
 }

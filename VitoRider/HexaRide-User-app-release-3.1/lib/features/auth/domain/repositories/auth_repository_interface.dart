@@ -34,4 +34,5 @@ abstract class AuthRepositoryInterface implements RepositoryInterface{
   Future<void> saveRideCreatedTime(DateTime dateTime);
   Future<String> remainingTime();
   String getLoginCountryCode(bool externalUser);
+  Future<dynamic> checkUsername(String username);
 }

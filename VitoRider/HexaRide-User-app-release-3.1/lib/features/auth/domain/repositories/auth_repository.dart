@@ -307,10 +307,13 @@ class AuthRepository implements AuthRepositoryInterface{
   @override
   Future<dynamic> registrationFromOtp(SignUpBody signUpBody, {required bool updateFromRegistration}) async{
    return await apiClient.postData(
-     updateFromRegistration ?
-     AppConstants.otpLoginAfterUpdateData :
-     AppConstants.registrationFromOtp,
+     AppConstants.otpLoginAfterUpdateData,
      signUpBody.toJson(),
    );
+  }
+
+  @override
+  Future<dynamic> checkUsername(String username) async {
+    return await apiClient.postData(AppConstants.checkUsername, {'username': username});
   }
 }

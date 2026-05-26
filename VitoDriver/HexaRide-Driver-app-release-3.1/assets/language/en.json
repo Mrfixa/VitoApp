@@ -1033,5 +1033,14 @@
   "order_cancelled": "Cancelled",
   "username": "Username",
   "pin_must_be_6_digits": "PIN must be 6 digits",
-  "username_min_3_characters": "Username must be at least 3 characters"
+  "username_min_3_characters": "Username must be at least 3 characters",
+  "scan_qr_code": "Scan QR Code",
+  "no_internet_connection": "No internet connection",
+  "share_qr_code": "Share QR Code",
+  "invite_customer": "Invite Customer",
+  "valid_for": "Valid for",
+  "failed_to_generate_qr": "Failed to generate QR code",
+  "checking": "Checking...",
+  "username_available": "Username is available",
+  "username_taken": "Username is already taken"
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ride_sharing_user_app/common_widgets/button_widget.dart';
 import 'package:ride_sharing_user_app/common_widgets/custom_text_field.dart';
@@ -161,6 +162,7 @@ class _AddFundDialogState extends State<AddFundDialog> {
 
               ButtonWidget(
                   onPressed: (paymentController.paymentGateways ?? []).isNotEmpty ? (){
+                    HapticFeedback.heavyImpact();
                     String textBalance = _amountController.text.trim().replaceAll(Get.find<ConfigController>().config?.currencySymbol ?? '\$', '').replaceAll(' ', '').replaceAll(',', '');
                     double balance = double.tryParse(textBalance) ?? -1;
 

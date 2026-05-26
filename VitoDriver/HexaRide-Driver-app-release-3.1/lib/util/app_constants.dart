@@ -12,8 +12,6 @@ class AppConstants {
   static const String loginUri = '/api/driver/auth/login';
   static const String logout = '/api/user/logout';
   static const String permanentDelete = '/api/user/delete';
-  static const String sendOtp = '/api/driver/auth/send-otp';
-  static const String otpVerification = '/api/driver/auth/otp-verification';
   static const String resetPassword = '/api/driver/auth/reset-password';
   static const String changePassword = '/api/user/change-password';
   static const String onlineOfflineStatus = '/api/driver/update-online-status';
@@ -85,7 +83,6 @@ class AppConstants {
   static const String parcelReturnedOtp = '/api/driver/ride/returned-parcel';
   static const String parcelResendOtp = '/api/driver/ride/resend-otp';
   static const String getZoneList = '/api/driver/zone/list';
-  static const String otpFirebaseVerification = '/api/driver/auth/firebase-otp-verification';
   static const String checkRegisteredUserUri = '/api/driver/auth/check';
   static const String createChannelWithAdmin = '/api/driver/chat/create-channel-with-admin';
   static const String sendMessageToAdmin = '/api/driver/chat/send-message-to-admin';
@@ -108,7 +105,6 @@ class AppConstants {
   static const String faceVeryUri = '/api/driver/face-verification/verify';
   static const String skipFaceVerify = '/api/driver/face-verification/skip';
   static const String rideTrackingUrl = '/api/track/';
-  static const String registrationFromOtp = '/api/driver/auth/registration-from-otp';
   static const String otpLoginAfterUpdateData = '/api/driver/auth/update-data';
   static const String pinLogin = '/api/driver/auth/pin-login';
   static const String pinRegister = '/api/driver/auth/pin-register';

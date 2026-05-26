@@ -1024,5 +1024,14 @@
   "order_not_available": "الطلب لم يعد متاحاً",
   "items_ordered": "عناصر",
   "delivery_details": "تفاصيل التوصيل",
-  "something_went_wrong": "حدث خطأ ما. يرجى المحاولة مرة أخرى."
+  "something_went_wrong": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+  "checking": "جاري التحقق...",
+  "username_available": "اسم المستخدم متاح",
+  "username_taken": "اسم المستخدم مستخدم بالفعل",
+  "scan_qr_code": "مسح رمز QR",
+  "no_internet_connection": "لا يوجد اتصال بالإنترنت",
+  "share_qr_code": "مشاركة رمز QR",
+  "invite_customer": "دعوة عميل",
+  "valid_for": "صالح لمدة",
+  "failed_to_generate_qr": "فشل في إنشاء رمز QR"
 }
