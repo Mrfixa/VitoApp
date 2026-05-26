@@ -14,9 +14,7 @@ class AppConstants {
   static const String loginUri = '/api/customer/auth/login';
   static const String logOutUri = '/api/user/logout';
   static const String deleteAccount = '/api/user/delete';
-  static const String sendOTP = '/api/customer/auth/send-otp';
-  static const String otpVerification = '/api/customer/auth/otp-verification';
-  static const String otpLogin = '/api/customer/auth/otp-login';
+  static const String checkUsername = '/api/customer/auth/check-username';
   static const String resetPassword = '/api/customer/auth/reset-password';
   static const String changePassword = '/api/user/change-password';
   static const String forgetPassword = '/api/customer/auth/forget-password';
@@ -83,7 +81,6 @@ class AppConstants {
   static const String parcelReceived = '/api/customer/ride/received-returning-parcel/';
   static const String getParcelRefundReasonList = '/api/customer/config/parcel-refund-reason-list';
   static const String parcelRefundCreate = '/api/customer/parcel/refund/create';
-  static const String otpFirebaseVerification = '/api/customer/auth/firebase-otp-verification';
   static const String checkRegisteredUserUri = '/api/customer/auth/check';
   static const String getSafetyAlertReasonList = '/api/customer/config/safety-alert-reason-list';
   static const String getOtherEmergencyNumberList = '/api/customer/config/other-emergency-contact-list';
@@ -100,7 +97,6 @@ class AppConstants {
   static const String getAddFundPromotionalList = '/api/customer/wallet/bonus-list';
   static const String digitalAddFund = '/api/customer/wallet/add-fund-digitally';
   static const String rideTrackingUrl = '/api/track/';
-  static const String registrationFromOtp = '/api/customer/auth/registration-from-otp';
   static const String otpLoginAfterUpdateData = '/api/customer/auth/update-data';
   static const String pinLogin = '/api/customer/auth/pin-login';
   static const String pinRegister = '/api/customer/auth/pin-register';

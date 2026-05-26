@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -30,10 +32,34 @@ class _SignUpScreenState extends State<SignUpScreen> {
   FocusNode passwordNode = FocusNode();
   FocusNode referralNode = FocusNode();
 
+  Timer? _usernameDebounce;
+  bool? _usernameAvailable;
+  bool _checkingUsername = false;
 
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _usernameDebounce?.cancel();
+    super.dispose();
+  }
+
+  void _onUsernameChanged(String value) {
+    _usernameDebounce?.cancel();
+    if (value.trim().length < 3) {
+      if (_usernameAvailable != null || _checkingUsername) {
+        setState(() { _usernameAvailable = null; _checkingUsername = false; });
+      }
+      return;
+    }
+    setState(() { _checkingUsername = true; _usernameAvailable = null; });
+    _usernameDebounce = Timer(const Duration(milliseconds: 500), () async {
+      final available = await Get.find<AuthController>().checkUsernameAvailability(value.trim());
+      if (mounted) setState(() { _usernameAvailable = available; _checkingUsername = false; });
+    });
   }
 
   @override
@@ -86,7 +112,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   nextFocus: fNameNode,
                   inputAction: TextInputAction.next,
                   autoFocus: authController.usernameController.text.isEmpty,
+                  onChanged: _onUsernameChanged,
                 ),
+                if (_checkingUsername) ...[
+                  const SizedBox(height: 4),
+                  Row(children: [
+                    SizedBox(width: 12, height: 12, child: CircularProgressIndicator(strokeWidth: 1.5, color: Theme.of(context).primaryColor)),
+                    const SizedBox(width: 6),
+                    Text('checking'.tr, style: textRegular.copyWith(fontSize: Dimensions.fontSizeExtraSmall)),
+                  ]),
+                ] else if (_usernameAvailable != null) ...[
+                  const SizedBox(height: 4),
+                  Row(children: [
+                    Icon(_usernameAvailable! ? Icons.check_circle : Icons.cancel, size: 14,
+                        color: _usernameAvailable! ? Colors.green : Theme.of(context).colorScheme.error),
+                    const SizedBox(width: 4),
+                    Text(_usernameAvailable! ? 'username_available'.tr : 'username_taken'.tr,
+                        style: textRegular.copyWith(fontSize: Dimensions.fontSizeExtraSmall,
+                            color: _usernameAvailable! ? Colors.green : Theme.of(context).colorScheme.error)),
+                  ]),
+                ],
                 const SizedBox(width: Dimensions.paddingSizeDefault),
 
                 TextFieldTitle(title: 'first_name'.tr, isRequired: true),

@@ -33,4 +33,5 @@ abstract class AuthServiceInterface{
   Future<dynamic> remainingTime();
   Future<dynamic> registrationFromOtp(SignUpBody signUpBody, {required bool updateFromRegistration});
   String getLoginCountryCode(bool externalUser);
+  Future<dynamic> checkUsername(String username);
 }

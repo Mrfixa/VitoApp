@@ -998,5 +998,14 @@
   "confirm_booking_message": "Are you sure you want to book this ride?",
   "too_many_requests": "Too many requests. Please try again later.",
   "server_error": "Server error. Please try again.",
-  "order_not_found": "Order not found or cannot be cancelled"
+  "order_not_found": "Order not found or cannot be cancelled",
+  "scan_qr_code": "Scan QR Code",
+  "no_internet_connection": "No internet connection",
+  "share_qr_code": "Share QR Code",
+  "invite_customer": "Invite Customer",
+  "valid_for": "Valid for",
+  "failed_to_generate_qr": "Failed to generate QR code",
+  "checking": "Checking...",
+  "username_available": "Username is available",
+  "username_taken": "Username is already taken"
 }
