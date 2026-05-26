@@ -4,6 +4,12 @@ on:
   push:
     tags:
       - "v*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version tag (e.g. v0.0.1)"
+        required: true
+        default: "v0.0.1"
 
 jobs:
   build-rider-apk:
@@ -93,15 +99,15 @@ jobs:
 
       - name: Rename APKs
         run: |
-          mv artifacts/rider/app-release.apk artifacts/vito-rider-${{ github.ref_name }}.apk
-          mv artifacts/driver/app-release.apk artifacts/vito-driver-${{ github.ref_name }}.apk
+          mv artifacts/rider/app-release.apk artifacts/vito-rider-${{ github.ref_name != 'main' && github.ref_name || inputs.version }}.apk
+          mv artifacts/driver/app-release.apk artifacts/vito-driver-${{ github.ref_name != 'main' && github.ref_name || inputs.version }}.apk
 
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
-          name: "Vito ${{ github.ref_name }}"
+          name: "Vito ${{ github.ref_name != 'main' && github.ref_name || inputs.version }}"
           body: |
-            ## Vito ${{ github.ref_name }}
+            ## Vito ${{ github.ref_name != 'main' && github.ref_name || inputs.version }}
 
             ### What's included
             - **Vito Rider** — Customer ride-sharing app (Android APK)
@@ -123,7 +129,7 @@ jobs:
             ### Installation
             Download the APK for your device type and install (enable "Install from unknown sources" if needed).
           files: |
-            artifacts/vito-rider-${{ github.ref_name }}.apk
-            artifacts/vito-driver-${{ github.ref_name }}.apk
+            artifacts/vito-rider-${{ github.ref_name != 'main' && github.ref_name || inputs.version }}.apk
+            artifacts/vito-driver-${{ github.ref_name != 'main' && github.ref_name || inputs.version }}.apk
           draft: false
           prerelease: false
