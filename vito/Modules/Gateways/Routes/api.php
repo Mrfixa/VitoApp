@@ -33,12 +33,3 @@ Route::group(['prefix' => 'customer/stripe', 'middleware' => ['auth:api', 'maint
 });
 
 Route::post('stripe/webhook', [\Modules\Gateways\Http\Controllers\Api\VitoStripeController::class, 'webhook']);
-
-/*
-|--------------------------------------------------------------------------
-| Vito Wallet Routes
-|--------------------------------------------------------------------------
-*/
-Route::group(['prefix' => 'customer', 'middleware' => ['auth:api', 'maintenance_mode']], function () {
-    Route::get('wallet', [\Modules\UserManagement\Http\Controllers\Api\Customer\VitoWalletController::class, 'index']);
-});

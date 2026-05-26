@@ -9,12 +9,10 @@ import 'package:ride_sharing_user_app/features/auth/domain/repositories/auth_rep
 import 'package:ride_sharing_user_app/util/app_constants.dart';
 import 'package:ride_sharing_user_app/features/address/domain/models/address_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthRepository implements AuthRepositoryInterface{
   final ApiClient apiClient;
   final SharedPreferences sharedPreferences;
-  final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
   AuthRepository({required this.apiClient, required this.sharedPreferences});
 
   @override
@@ -174,9 +172,8 @@ class AuthRepository implements AuthRepositoryInterface{
     }catch(e) {
     }
     apiClient.updateHeader(token, address);
-    await _secureStorage.write(key: AppConstants.token, value: token);
-    await sharedPreferences.remove(AppConstants.token);
-    return true;
+    return await sharedPreferences.setString(AppConstants.token, token);
+
   }
 
 
@@ -185,27 +182,15 @@ class AuthRepository implements AuthRepositoryInterface{
     return sharedPreferences.getString(AppConstants.token) ?? "";
   }
 
-  Future<String> getSecureToken() async {
-    final secure = await _secureStorage.read(key: AppConstants.token);
-    if (secure != null && secure.isNotEmpty) return secure;
-    return sharedPreferences.getString(AppConstants.token) ?? '';
-  }
-
   @override
   bool isLoggedIn() {
     return sharedPreferences.containsKey(AppConstants.token);
-  }
-
-  Future<bool> isLoggedInAsync() async {
-    final secure = await _secureStorage.read(key: AppConstants.token);
-    return (secure != null && secure.isNotEmpty) || sharedPreferences.containsKey(AppConstants.token);
   }
 
   @override
   bool clearSharedData() {
     sharedPreferences.remove(AppConstants.token);
     sharedPreferences.remove(AppConstants.userAddress);
-    _secureStorage.delete(key: AppConstants.token);
     return true;
   }
 

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -164,7 +163,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   buttonText: 'submit'.tr,
                   radius: 50,
                   onPressed: () {
-                    HapticFeedback.mediumImpact();
                     String username = authController.usernameController.text.trim();
                     String fName = authController.fNameController.text.trim();
                     String lName = authController.lNameController.text.trim();

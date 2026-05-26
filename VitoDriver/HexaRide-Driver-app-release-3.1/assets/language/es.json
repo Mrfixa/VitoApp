@@ -993,7 +993,7 @@
   "customer_signature": "Firma del cliente",
   "delivery_address": "Dirección de entrega",
   "delivery_completed": "Entrega completada",
-  "delivery_details": "Detalles de Entrega",
+  "delivery_details": "Detalles de entrega",
   "delivery_failed": "Entrega fallida",
   "delivery_photo": "Foto de entrega",
   "draw_signature": "Dibuja la firma",
@@ -1024,6 +1024,7 @@
   "no_pending_orders": "No hay pedidos de mart pendientes",
   "order_not_available": "El pedido ya no está disponible",
   "items_ordered": "artículos",
+  "delivery_details": "Detalles de Entrega",
   "something_went_wrong": "Algo salió mal. Por favor, inténtelo de nuevo.",
   "order_accepted": "Aceptado",
   "order_picked_up": "Recogido",
@@ -1031,11 +1032,5 @@
   "order_cancelled": "Cancelado",
   "username": "Usuario",
   "pin_must_be_6_digits": "El PIN debe tener 6 dígitos",
-  "username_min_3_characters": "El usuario debe tener al menos 3 caracteres",
-  "scan_qr_code": "Escanear código QR",
-  "no_internet_connection": "Sin conexión a internet",
-  "share_qr_code": "Compartir código QR",
-  "invite_customer": "Invitar cliente",
-  "valid_for": "Válido por",
-  "failed_to_generate_qr": "Error al generar el código QR"
+  "username_min_3_characters": "El usuario debe tener al menos 3 caracteres"
 }
