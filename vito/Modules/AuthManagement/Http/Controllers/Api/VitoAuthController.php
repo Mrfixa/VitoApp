@@ -197,6 +197,21 @@ class VitoAuthController extends Controller
         return response()->json(responseFormatter(REGISTRATION_200));
     }
 
+    public function checkUsername(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|string|min:3|max:50',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(responseFormatter(constant: DEFAULT_400, errors: errorProcessor($validator)), 422);
+        }
+
+        $available = !User::where('username', $request->username)->exists();
+
+        return response()->json(responseFormatter(DEFAULT_200, ['available' => $available]));
+    }
+
     private function authenticate($user, $accessType): array
     {
         $token = $user->createToken($user->phone ?? $user->username, [$accessType])->accessToken;
